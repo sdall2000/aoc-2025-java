@@ -1,6 +1,6 @@
 package common;
 
-import org.javatuples.Pair;
+import io.arxila.javatuples.Pair;
 
 public record Line(Point point1, Point point2) {
     public boolean connected(Line other) {

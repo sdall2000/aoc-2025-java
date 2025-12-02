@@ -1,7 +1,7 @@
 package common;
 
-import org.javatuples.Pair;
-import org.javatuples.Triplet;
+import io.arxila.javatuples.Pair;
+import io.arxila.javatuples.Trio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +96,8 @@ public class CharGrid
         List<Pair<Integer, Integer>> list = new ArrayList<>();
 
         NSEW_OFFSETS.forEach(p -> {
-            int rowOffset = p.getValue0();
-            int colOffset = p.getValue1();
+            int rowOffset = p.value0();
+            int colOffset = p.value1();
 
             int newRow = row + rowOffset;
             int newCol = col + colOffset;
@@ -110,8 +110,8 @@ public class CharGrid
 
     public List<Pair<Integer, Integer>> getAllValidNeighbors(int row, int col) {
         return allOffsets.stream().filter(p -> {
-            int rowOffset = p.getValue0();
-            int colOffset = p.getValue1();
+            int rowOffset = p.value0();
+            int colOffset = p.value1();
 
             int newRow = row + rowOffset;
             int newCol = col + colOffset;
@@ -120,12 +120,12 @@ public class CharGrid
         }).collect(Collectors.toList());
     }
 
-    public List<Triplet<Integer, Integer, Integer>> getRowColValues() {
-        List<Triplet<Integer, Integer, Integer>> list = new ArrayList<>();
+    public List<Trio<Integer, Integer, Integer>> getRowColValues() {
+        List<Trio<Integer, Integer, Integer>> list = new ArrayList<>();
 
         for (int row=0; row <= maxRow; row++) {
             for (int col=0; col <= maxCol; col++) {
-                list.add(new Triplet<>(row, col, (int) valueAt(row, col)));
+                list.add(new Trio<>(row, col, (int) valueAt(row, col)));
             }
         }
 

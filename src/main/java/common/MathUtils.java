@@ -1,6 +1,6 @@
 package common;
 
-import org.javatuples.Pair;
+import io.arxila.javatuples.Pair;
 
 public class MathUtils {
     // Courtesy ChatGPT

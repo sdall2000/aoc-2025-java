@@ -5,7 +5,6 @@ import io.arxila.javatuples.Trio;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CharGrid
 {
@@ -63,6 +62,10 @@ public class CharGrid
         return values[row][col];
     }
 
+    public void setValue(int row, int col, char value) {
+        values[row][col] = value;
+    }
+
     public boolean inBounds(int row, int col) {
         return row >= 0 && row <= maxRow && col >= 0 && col <= maxCol;
     }
@@ -109,15 +112,19 @@ public class CharGrid
     }
 
     public List<Pair<Integer, Integer>> getAllValidNeighbors(int row, int col) {
-        return allOffsets.stream().filter(p -> {
+        List<Pair<Integer, Integer>> list = new ArrayList<>();
+
+        allOffsets.forEach(p -> {
             int rowOffset = p.value0();
             int colOffset = p.value1();
 
             int newRow = row + rowOffset;
             int newCol = col + colOffset;
 
-            return inBounds(newRow, newCol);
-        }).collect(Collectors.toList());
+            if (inBounds(newRow, newCol)) list.add(new Pair<>(newRow, newCol));
+        });
+
+        return list;
     }
 
     public List<Trio<Integer, Integer, Integer>> getRowColValues() {

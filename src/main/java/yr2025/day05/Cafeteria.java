@@ -21,8 +21,6 @@ public class Cafeteria {
             } else {
                 long ingredient = Long.parseLong(line);
 
-                boolean contains = false;
-
                 for (var range : pairs) {
                     if (range.value0() <= ingredient && range.value1() >= ingredient) {
                         result++;

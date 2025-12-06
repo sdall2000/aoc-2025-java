@@ -3,7 +3,6 @@
         "src/main/java", "src/test/java", "src/test/resources"
     ],
     "java.project.referencedLibraries": [
-        "/workspaces/aoc-2025-java/lib/junit-platform-console-standalone-1.13.0-M3.jar",
-        "/workspaces/aoc-2025-java/lib/javatuples-2.0.1.jar"
+        "/workspaces/aoc-2025-java/lib/junit-platform-console-standalone-1.13.0-M3.jar"
     ]
 }

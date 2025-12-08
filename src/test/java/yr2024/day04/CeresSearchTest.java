@@ -11,7 +11,7 @@ public class CeresSearchTest {
         var lines = Utilities.readResourceLines("/yr2024/day04/input.txt");
         var solution = new CeresSearch();
 
-        assertEquals(-1, solution.part1(lines));
+        assertEquals(2_344, solution.part1(lines));
     }
 
     @Test
@@ -19,6 +19,6 @@ public class CeresSearchTest {
         var lines = Utilities.readResourceLines("/yr2024/day04/input.txt");
         var solution = new CeresSearch();
 
-        assertEquals(-1, solution.part2(lines));
+        assertEquals(1_815, solution.part2(lines));
     }
 }

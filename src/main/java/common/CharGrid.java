@@ -22,7 +22,7 @@ public class CharGrid
             EAST,
             WEST);
 
-    private final List<RowCol> allOffsets = List.of(
+    public static final List<RowCol> ALL_OFFSETS = List.of(
             new RowCol(-1, 0),
             new RowCol(-1, 1),
             new RowCol(0, 1),
@@ -111,7 +111,7 @@ public class CharGrid
     public List<RowCol> getAllValidNeighbors(int row, int col) {
         List<RowCol> list = new ArrayList<>();
 
-        allOffsets.forEach(p -> {
+        ALL_OFFSETS.forEach(p -> {
             int rowOffset = p.row();
             int colOffset = p.col();
 
@@ -154,5 +154,17 @@ public class CharGrid
 
     public char valueAt(Point newPosition) {
         return valueAt(newPosition.row(), newPosition.col());
+    }
+
+    /**
+     * Determines if the value at the given row, col is equal to the passed in value.
+     * Note that if the row or column is out of bounds, this method will return false.
+     * @param row
+     * @param col
+     * @param value
+     * @return
+     */
+    public boolean valueEquals(int row, int col, char value) {
+        return inBounds(row, col) && valueAt(row, col) == value;
     }
 }

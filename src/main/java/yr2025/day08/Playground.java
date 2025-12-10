@@ -25,15 +25,15 @@ public class Playground {
         }
 
         // Create a map of distances to pairs of junction boxes
-        TreeMap<Integer, Pair<Triplet<Integer, Integer, Integer>, Triplet<Integer, Integer, Integer>>> tm = new TreeMap<>();
+        TreeMap<Double, Pair<Triplet<Integer, Integer, Integer>, Triplet<Integer, Integer, Integer>>> tm = new TreeMap<>();
 
-        TreeMap<Integer, Set<Pair<Triplet<Integer, Integer, Integer>, Triplet<Integer, Integer, Integer>>>> tm2 = new TreeMap<>();
+        TreeMap<Double, Set<Pair<Triplet<Integer, Integer, Integer>, Triplet<Integer, Integer, Integer>>>> tm2 = new TreeMap<>();
 
         for (var junctionBox : coordinates) {
             for (var compareJunctionBox : coordinates) {
                 if (junctionBox == compareJunctionBox) continue;
 
-                int d = distance(junctionBox, compareJunctionBox);
+                double d = distance(junctionBox, compareJunctionBox);
 
                 if (tm.containsKey(d)) {
                 } else {
@@ -61,7 +61,6 @@ public class Playground {
 
                 // Both junction boxes are already on the same circuit - nothing to do
                 if (junctionBoxCircuit != closestCircuit) {
-
                     // Merge closestCircuit into junctionBoxCircuit
                     junctionBoxCircuit.addAll(closestCircuit);
 
@@ -114,7 +113,7 @@ public class Playground {
 
         int lastIndex = circuitSizes.size() - 1;
 
-        return circuitSizes.get(lastIndex) * circuitSizes.get(lastIndex-1) * circuitSizes.get(lastIndex - 2);
+        return (long) circuitSizes.get(lastIndex) * circuitSizes.get(lastIndex - 1) * circuitSizes.get(lastIndex - 2);
     }
 
     public long part1Backup(List<String> lines) {
@@ -132,7 +131,7 @@ public class Playground {
         }
 
         for (var junctionBox : coordinates) {
-            int distance = Integer.MAX_VALUE;
+            double distance = Double.MAX_VALUE;
             Triplet<Integer, Integer, Integer> closest = null;
 
             for (var compareJunctionBox : coordinates) {
@@ -140,9 +139,10 @@ public class Playground {
                 if (junctionBox == compareJunctionBox) continue;
 
                 // If both junction boxes are already part of a circuit, the skip
-                if (junctionToCircuit.containsKey(junctionBox) && junctionToCircuit.containsKey(compareJunctionBox)) continue;
+                if (junctionToCircuit.containsKey(junctionBox) && junctionToCircuit.containsKey(compareJunctionBox))
+                    continue;
 
-                int lclDistance = distance(junctionBox, compareJunctionBox);
+                double lclDistance = distance(junctionBox, compareJunctionBox);
 
                 if (lclDistance < distance) {
                     distance = lclDistance;
@@ -177,20 +177,24 @@ public class Playground {
             }
         }
 
-        List<Integer> distances = new ArrayList<>();
+        List<Integer> circuitSizes = new ArrayList<>();
 
         for (var circuit : circuits) {
-            distances.add(circuit.size());
+            circuitSizes.add(circuit.size());
         }
 
-        distances.sort(Integer::compare);
+        circuitSizes.sort(Integer::compare);
 
-        int lastIndex = distances.size() - 1;
+        int lastIndex = circuitSizes.size() - 1;
 
-        return distances.get(lastIndex) * distances.get(lastIndex-1) * distances.get(lastIndex - 2);
+        return (long) circuitSizes.get(lastIndex) * circuitSizes.get(lastIndex - 1) * circuitSizes.get(lastIndex - 2);
     }
 
-    public int distance(Triplet<Integer, Integer, Integer> box1, Triplet<Integer, Integer, Integer> box2) {
+    public double distance(Triplet<Integer, Integer, Integer> box1, Triplet<Integer, Integer, Integer> box2) {
+        return Math.sqrt(Math.pow(box1.value0() - box2.value0(), 2) + Math.pow(box1.value1() - box2.value1(), 2) + Math.pow(box1.value2() - box2.value2(), 2));
+    }
+
+    public int distance2(Triplet<Integer, Integer, Integer> box1, Triplet<Integer, Integer, Integer> box2) {
         return Math.abs(box1.value0() - box2.value0()) + Math.abs(box1.value1() - box2.value1()) + Math.abs(box1.value2() - box2.value2());
     }
 

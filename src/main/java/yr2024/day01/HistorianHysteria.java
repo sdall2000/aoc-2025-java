@@ -31,9 +31,6 @@ public class HistorianHysteria {
     }
 
     public long part2(List<String> lines) {
-        var result = 0L;
-
-
         List<Long> leftList = new ArrayList<>();
         List<Long> rightList = new ArrayList<>();
 

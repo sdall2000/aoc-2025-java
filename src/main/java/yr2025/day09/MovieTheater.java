@@ -56,9 +56,9 @@ public class MovieTheater {
                 long area = rows * cols;
 
                 if (area > largest) {
-                    if (valid(coord1, coord2, coordinates)) {
+                    // if (valid(coord1, coord2, coordinates)) {
 
-                    }
+                    // }
                 }
             }
         }

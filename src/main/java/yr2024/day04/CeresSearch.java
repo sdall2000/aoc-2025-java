@@ -2,7 +2,6 @@ package yr2024.day04;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import common.CharGrid;
 import common.RowCol;

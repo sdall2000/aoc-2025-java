@@ -1,8 +1,5 @@
 package yr2025.day07;
 
-import common.RowCol;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

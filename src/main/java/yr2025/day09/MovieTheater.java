@@ -51,9 +51,10 @@ public class MovieTheater {
 
         // Now calculate the area of all pairs
 
-        for (RowCol coord1 : coordinates) {
-            for (RowCol coord2 : coordinates) {
-                if (coord1 == coord2) continue;
+        for (int i=0; i < coordinates.size() - 1; i++) {
+            var coord1 = coordinates.get(i);
+            for (int j=i+1; j < coordinates.size(); j++) {
+                var coord2 = coordinates.get(j);
 
                 long rows = Math.abs(coord1.row() - coord2.row()) + 1;
                 long cols = Math.abs(coord1.col() - coord2.col()) + 1;

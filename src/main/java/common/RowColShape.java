@@ -76,9 +76,8 @@ public class RowColShape {
         if (!inRange(rowCol.col(), minCol, maxCol) || !inRange(rowCol.row(), minRow, maxRow)) return false;
 
         long verticalCount = 0;
-        long horizontalCount = 0;
-        boolean onHline = false;
-        boolean onVline = false;
+        boolean onHline;
+        boolean onVline;
 
         // Go through each row
         for (int row : horizontalLines.keySet()) {
@@ -90,9 +89,7 @@ public class RowColShape {
 
             // Iterate through each horizontal line in row
             for (var hline : hlines) {
-
                 if (inRange(rowCol.col(), hline.value0(), hline.value1())) {
-                    horizontalCount++;
                     onHline = row == rowCol.row();
 
                     if (onHline) {
@@ -105,11 +102,6 @@ public class RowColShape {
             }
         }
 
-        if (horizontalCount % 2 == 1) {
-            memo.put(rowCol, true);
-            return true;
-        }
-
         for (int col : verticalLines.keySet()) {
             if (col > rowCol.col()) break;
 
@@ -117,7 +109,8 @@ public class RowColShape {
 
             for (var vline : vlines) {
                 if (inRange(rowCol.row(), vline.value0(), vline.value1())) {
-                    verticalCount++;
+                    if (inRange(rowCol.row(), vline.value0(), vline.value1() - 1)) verticalCount++;
+
                     onVline = col == rowCol.col();
 
                     if (onVline) {
@@ -130,7 +123,7 @@ public class RowColShape {
             }
         }
 
-        boolean inShape = horizontalCount % 2 == 1 || verticalCount % 2 == 1;
+        boolean inShape = verticalCount % 2 == 1;
 
         memo.put(rowCol, inShape);
 

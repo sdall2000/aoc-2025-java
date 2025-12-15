@@ -19,14 +19,14 @@ public class RowColShape {
     private int minRow = Integer.MAX_VALUE;
     private int maxRow = Integer.MIN_VALUE;
 
-    private Map<RowCol, Boolean> memo = new HashMap<>();
+    private final Map<RowCol, Boolean> memo = new HashMap<>();
 
     public RowColShape(List<RowCol> points) {
         this.points.addAll(points);
 
         for (int i=0; i < this.points.size(); i++) {
             RowCol current = this.points.get(i);
-            RowCol next = null;
+            RowCol next;
 
             minCol = Math.min(minCol, current.col());
             maxCol = Math.max(maxCol, current.col());
@@ -94,9 +94,20 @@ public class RowColShape {
                 if (inRange(rowCol.col(), hline.value0(), hline.value1())) {
                     horizontalCount++;
                     onHline = row == rowCol.row();
+
+                    if (onHline) {
+                        memo.put(rowCol, true);
+                        return true;
+                    }
+
                     break;
                 }
             }
+        }
+
+        if (horizontalCount % 2 == 1) {
+            memo.put(rowCol, true);
+            return true;
         }
 
         for (int col : verticalLines.keySet()) {
@@ -108,12 +119,18 @@ public class RowColShape {
                 if (inRange(rowCol.row(), vline.value0(), vline.value1())) {
                     verticalCount++;
                     onVline = col == rowCol.col();
+
+                    if (onVline) {
+                        memo.put(rowCol, true);
+                        return true;
+                    }
+
                     break;
                 }
             }
         }
 
-        boolean inShape = onHline || onVline || (horizontalCount % 2 == 1 && verticalCount % 2 == 1);
+        boolean inShape = horizontalCount % 2 == 1 || verticalCount % 2 == 1;
 
         memo.put(rowCol, inShape);
 

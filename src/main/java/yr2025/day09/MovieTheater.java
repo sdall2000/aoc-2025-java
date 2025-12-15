@@ -55,6 +55,13 @@ public class MovieTheater {
             for (RowCol coord2 : coordinates) {
                 if (coord1 == coord2) continue;
 
+                long rows = Math.abs(coord1.row() - coord2.row()) + 1;
+                long cols = Math.abs(coord1.col() - coord2.col()) + 1;
+
+                long area = rows * cols;
+
+                if (area < largest) continue;
+
                 boolean exclude=false;
 
                 int minCol = Math.min(coord1.col(), coord2.col());
@@ -73,10 +80,7 @@ public class MovieTheater {
                 }
 
                 if (!exclude) {
-                    long rows = Math.abs(coord1.row() - coord2.row()) + 1;
-                    long cols = Math.abs(coord1.col() - coord2.col()) + 1;
-
-                    largest = Math.max(largest, rows * cols);
+                    largest = Math.max(largest, area);
                 }
             }
         }
